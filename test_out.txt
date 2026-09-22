@@ -1,0 +1,28 @@
+﻿python : test_bad_parameter (test_app.ApiTest) ... ok
+所在位置 行:22 字符: 1
++ python -m unittest discover -s tests -v 2>&1 | Out-File -Encoding utf ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_bad_parame...ApiTest) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_cache_actually_helps (test_app.ApiTest) ... ok
+test_detail_and_404 (test_app.ApiTest) ... ok
+test_devices_paging_and_filter (test_app.ApiTest) ... ok
+test_health (test_app.ApiTest) ... ok
+test_static_page_served (test_app.ApiTest) ... ok
+test_cached_query_calls_loader_once (test_app.CacheTest) ... ok
+test_hit_and_miss_stats (test_app.CacheTest) ... ok
+test_lru_eviction (test_app.CacheTest) ... ok
+test_ttl_expiration (test_app.CacheTest) ... ok
+test_filter_and_order (test_app.DbTest) ... ok
+test_index_changes_query_plan_and_speed (test_app.DbTest) ... ok
+test_paging_and_total (test_app.DbTest) ... ok
+test_readings_desc_order (test_app.DbTest) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.704s
+
+OK
+
+    [����ʵ��] SCAN TABLE readings | USE TEMP B-TREE FOR ORDER BY �� SEARCH TABLE readings USING INDEX idx_readings_device_ts (device_id=?)
+    [����ʵ��] 0.0637 ms �� 0.0527 ms������ 1.2 ����
