@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>设备数据看板 · fullstack-lab</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/vue.global.prod.js"></script>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>设备数据看板</h1>
+      <p class="sub">前端 Vue 3（CDN） + Python REST API + SQLite（含索引优化） + LRU/TTL 缓存</p>
+    </header>
+
+    <section class="cards">
+      <div class="card"><span class="k">设备总数</span><b id="stat-devices">{{ stats.devices }}</b></div>
+      <div class="card"><span class="k">平均温度</span><b id="stat-avg">{{ stats.avg_temperature }} ℃</b></div>
+      <div class="card"><span class="k">最高温度</span><b id="stat-max">{{ stats.max_temperature }} ℃</b></div>
+      <div class="card"><span class="k">故障占比</span><b id="stat-fault">{{ (stats.fault_ratio * 100).toFixed(1) }}%</b></div>
+    </section>
+
+    <section class="toolbar">
+      <label>状态
+        <select id="f-status" v-model="status" @change="reload">
+          <option value="">全部</option>
+          <option v-for="s in statuses" :key="s" :value="s">{{ s }}</option>
+        </select>
+      </label>
+      <label>产线
+        <select id="f-line" v-model="line" @change="reload">
+          <option value="">全部</option>
+          <option v-for="l in lines" :key="l" :value="l">{{ l }}</option>
+        </select>
+      </label>
+      <label>排序
+        <select id="f-order" v-model="orderBy" @change="reload">
+          <option value="id">编号</option>
+          <option value="temperature">温度</option>
+          <option value="created_at">创建时间</option>
+        </select>
+      </label>
+      <label class="chk"><input type="checkbox" id="f-desc" v-model="desc" @change="reload"> 降序</label>
+      <button id="btn-reload" @click="reload">刷新</button>
+      <span class="hint" id="cache-hint">缓存命中率：{{ (cache.hit_rate * 100).toFixed(0) }}%（命中 {{ cache.hits }} / 未命中 {{ cache.misses }}）</span>
+    </section>
+
+    <table id="device-table">
+      <thead>
+        <tr><th>ID</th><th>序列号</th><th>型号</th><th>产线</th><th>状态</th><th>温度(℃)</th><th>创建时间</th></tr>
+      </thead>
+      <tbody>
+        <tr v-for="d in items" :key="d.id" :class="{ fault: d.status === 'fault' }">
+          <td>{{ d.id }}</td><td>{{ d.sn }}</td><td>{{ d.model }}</td>
+          <td>{{ d.line }}</td><td>{{ d.status }}</td>
+          <td>{{ d.temperature.toFixed(1) }}</td><td>{{ d.created_at }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <footer class="pager">
+      <button id="btn-prev" :disabled="page <= 1" @click="go(page - 1)">上一页</button>
+      <span id="page-info">第 {{ page }} / {{ totalPages }} 页 · 共 {{ total }} 条</span>
+      <button id="btn-next" :disabled="page >= totalPages" @click="go(page + 1)">下一页</button>
+    </footer>
+    <p class="err" id="err" v-if="error">{{ error }}</p>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
