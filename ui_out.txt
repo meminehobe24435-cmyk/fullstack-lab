@@ -1,0 +1,11 @@
+﻿  PASS  REST 接口 /api/devices 返回 items+total
+  PASS  页面标题渲染
+  PASS  统计卡片渲染
+  PASS  设备表格容器存在
+  PASS  表格里渲染出了真实设备序列号（前端-后端联调成功）
+  PASS  缓存统计渲染
+  PASS  页面没有出现加载错误提示
+  PASS  已保存整页截图 docs/dashboard.png
+
+前端验证：8 项通过，0 项失败
+RESULT: ALL PASS
