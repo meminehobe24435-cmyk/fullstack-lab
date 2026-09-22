@@ -1,0 +1,16 @@
+﻿已生成数据：400 台设备 / 10000 条读数
+
+=== ① 索引优化实测（同一查询，加索引前后）===
+  加索引前：SCAN TABLE readings | USE TEMP B-TREE FOR ORDER BY
+  加索引后：SEARCH TABLE readings USING INDEX idx_readings_device_ts (device_id=?)
+  平均耗时：0.3074 ms → 0.0270 ms，提速 11.4 倍
+
+=== ② 分页/筛选查询计划 ===
+  status 筛选：SEARCH TABLE devices USING COVERING INDEX idx_devices_status_line (status=? AND line=?)
+
+=== ③ LRU/TTL 缓存收益（模拟 1000 次带热点分布的请求）===
+  请求 1000 次：命中 819，未命中 181，实际查库 181 次，命中率 81.9%
+  淘汰 149 次，过期 0 次
+
+=== ④ 统计接口 ===
+  {'devices': 400, 'by_status': {'fault': 121, 'idle': 120, 'maintenance': 84, 'running': 75}, 'avg_temperature': 48.63, 'max_temperature': 74.92, 'fault_ratio': 0.3025}
