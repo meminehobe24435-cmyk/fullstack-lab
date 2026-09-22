@@ -1,0 +1,25 @@
+* { box-sizing: border-box; }
+body { margin: 0; font: 14px/1.6 -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+       color: #1f2933; background: #f5f7fa; }
+header { padding: 20px 24px 8px; }
+h1 { margin: 0; font-size: 22px; }
+.sub { margin: 4px 0 0; color: #64748b; font-size: 12px; }
+.cards { display: flex; gap: 12px; padding: 12px 24px; flex-wrap: wrap; }
+.card { flex: 1 1 150px; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px;
+        padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
+.card .k { color: #64748b; font-size: 12px; }
+.card b { font-size: 20px; }
+.toolbar { display: flex; gap: 14px; align-items: center; padding: 4px 24px 12px; flex-wrap: wrap; }
+.toolbar label { color: #475569; font-size: 13px; }
+select, button { font: inherit; padding: 4px 8px; border: 1px solid #cbd5e1; border-radius: 6px;
+                 background: #fff; }
+button { cursor: pointer; }
+button:disabled { opacity: .5; cursor: not-allowed; }
+.hint { color: #0f766e; font-size: 12px; }
+table { width: calc(100% - 48px); margin: 0 24px; border-collapse: collapse; background: #fff;
+        border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
+th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #eef2f7; }
+th { background: #f8fafc; color: #475569; font-weight: 600; font-size: 13px; }
+tr.fault td { background: #fff1f2; }
+.pager { display: flex; gap: 12px; align-items: center; padding: 12px 24px 24px; }
+.err { margin: 0 24px 24px; color: #b91c1c; }
