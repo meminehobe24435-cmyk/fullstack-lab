@@ -1,0 +1,4 @@
+data/
+docs/*.png
+__pycache__/
+*.pyc
